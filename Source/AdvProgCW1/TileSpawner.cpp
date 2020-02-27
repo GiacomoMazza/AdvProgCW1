@@ -25,7 +25,7 @@ void UTileSpawner::BeginPlay()
 	// Just for Testing 
 	SpawnObject();
 ///----------------------------------------------------------------------------------------------------------------------------
-	
+
 }
 
 
@@ -40,7 +40,7 @@ void UTileSpawner::TickComponent(float DeltaTime, ELevelTick TickType, FActorCom
 	// Spawn next Tile when Player Enters the Entry Trigger Volume
 	if (EntryTrigger && EntryTrigger->IsOverlappingActor(Player) && !NextTileSpawned)
 	{
-		// SpawnObject(SpawnPosition, SpawnRotation);
+		SpawnObject();
 		NextTileSpawned = true;
 	}
 
