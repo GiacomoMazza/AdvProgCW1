@@ -23,6 +23,7 @@ void AGM_TriggerBox::OnOverlapBegin(class AActor* OverlappedActor, class AActor*
 	if (OtherActor && (OtherActor != this)) {
 		//print("Overlap Begun");
 		//printf("Overlapped Actor = %s", *OverlappedActor->GetName());
+		UE_LOG(LogTemp, Warning, TEXT("Overlapped Actor (Begin) = %s"), *OverlappedActor->GetName());
 	}
 }
 
@@ -31,5 +32,6 @@ void AGM_TriggerBox::OnOverlapEnd(class AActor* OverlappedActor, class AActor* O
 		//print("Overlap Begun");
 		//printf("Overlapped Actor = %s", *OverlappedActor->GetName());
 		UE_LOG(LogTemp, Warning, TEXT("Overlapped Actor (End) = %s"), *OtherActor->GetName());
+		OtherActor->Destroy();
 	}
 }
