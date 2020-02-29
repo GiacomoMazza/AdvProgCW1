@@ -3,6 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Components/BoxComponent.h"
+#include "Components/PointLightComponent.h" 
 #include "GameFramework/Actor.h"
 #include "TrackTile.generated.h"
 
@@ -14,6 +16,27 @@ class ADVPROGCW1_API ATrackTile : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ATrackTile();
+
+///-JT- 
+///----------------------------------------------------------------------------------------------------------------------------
+	// Add Root (for Transform)
+	UPROPERTY()
+	USceneComponent* Root;
+
+	// Add StaticMesh Component
+	UPROPERTY(EditAnywhere)
+	UStaticMeshComponent* Mesh;
+
+	// Colliders
+	UBoxComponent* EntryCollider = nullptr;
+	UBoxComponent* ExitCollider = nullptr;
+
+	// Light
+	UPointLightComponent* TunnelLight = nullptr;
+
+///----------------------------------------------------------------------------------------------------------------------------
+	
+
 
 protected:
 	// Called when the game starts or when spawned
