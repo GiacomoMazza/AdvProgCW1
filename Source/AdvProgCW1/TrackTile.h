@@ -3,8 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Components/BoxComponent.h"
-#include "Components/PointLightComponent.h" 
+#include "Components/BoxComponent.h" 	
+#include "Components/SpotLightComponent.h"
+#include "Components/PointLightComponent.h"
 #include "GameFramework/Actor.h"
 #include "TrackTile.generated.h"
 
@@ -27,12 +28,15 @@ public:
 	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* Mesh;
 
-	// Colliders
-	UBoxComponent* EntryCollider = nullptr;
-	UBoxComponent* ExitCollider = nullptr;
-
 	// Light
-	UPointLightComponent* TunnelLight = nullptr;
+	UPROPERTY(EditAnywhere)
+	USpotLightComponent* TunnelLight;
+	UPROPERTY(EditAnywhere)
+	UPointLightComponent* TunnelPointLight;
+
+	// Box Collider
+	// UPROPERTY(EditAnywhere)
+	// UBoxComponent* EntryCollider;
 
 ///----------------------------------------------------------------------------------------------------------------------------
 	

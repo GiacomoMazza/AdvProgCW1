@@ -2,6 +2,7 @@
 
 
 #include "Components/StaticMeshComponent.h"
+#include "Components/SceneComponent.h"
 #include "UObject/ConstructorHelpers.h"
 #include "TrackTile.h"
 
@@ -22,13 +23,19 @@ ATrackTile::ATrackTile()
 		// Static Mesh Creation + Attach to Root
 		Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("TrackTile_SM"));
 		Mesh->AttachTo(Root);
-
-		// Add Light
-		// if (TunnelLight != nullptr)
-		// {
-		// 	TunnelLight = CreateDefaultSubobject<ULightComponent>(TEXT("Point Light"));
-		// 	TunnelLight->AttachTo(Root);
-		// }
+		
+		// TunnelLights
+		TunnelLight = CreateDefaultSubobject<USpotLightComponent>(TEXT("SpotLight_L"));
+		TunnelLight->SetIntensity(1000000.f); 
+		TunnelLight->SetOuterConeAngle(65.f);
+		TunnelLight->SetAttenuationRadius(2000.f);
+		TunnelLight->SetRelativeRotation(FRotator(-90.f, 0.f, 0.f));
+		TunnelLight->SetRelativeLocation(FVector(2000.f, 0.f, 800.f));
+		TunnelLight->AttachTo(Root);
+		TunnelPointLight = CreateDefaultSubobject<UPointLightComponent>(TEXT("PointLight_L"));
+		TunnelPointLight->SetIntensity(100000.f); 
+		TunnelPointLight->SetRelativeLocation(FVector(2000.f, 0.f, 750.f));
+		TunnelPointLight->AttachTo(Root);
 		
 		///-------------------------------------------
 		// OBJECT FINDER
@@ -59,11 +66,7 @@ ATrackTile::ATrackTile()
 		
 
 		// Create Colliders (Entry + Exit)
-		if (EntryCollider == nullptr)
-		{
-			EntryCollider = CreateDefaultSubobject<UBoxComponent>(TEXT("Entry Collider"));
-			EntryCollider->AttachTo(Root);
-		};
+		// EntryCollider = CreateDefaultSubobject<UBoxComponent>(TEXT("Entry Collider"));
 	///----------------------------------------------------------------------------------------------------------------------------
 	
 
