@@ -4,6 +4,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Components/SceneComponent.h"
 #include "UObject/ConstructorHelpers.h"
+#include "TileSpawner.h"
 #include "TrackTile.h"
 
 // Sets default values
@@ -28,7 +29,7 @@ ATrackTile::ATrackTile()
 		TunnelLight = CreateDefaultSubobject<USpotLightComponent>(TEXT("SpotLight_L"));
 		TunnelLight->SetIntensity(1000000.f); 
 		TunnelLight->SetOuterConeAngle(65.f);
-		TunnelLight->SetAttenuationRadius(2000.f);
+		TunnelLight->SetAttenuationRadius(3000.f);
 		TunnelLight->SetRelativeRotation(FRotator(-90.f, 0.f, 0.f));
 		TunnelLight->SetRelativeLocation(FVector(2000.f, 0.f, 800.f));
 		TunnelLight->AttachTo(Root);
@@ -66,7 +67,16 @@ ATrackTile::ATrackTile()
 		
 
 		// Create Colliders (Entry + Exit)
-		// EntryCollider = CreateDefaultSubobject<UBoxComponent>(TEXT("Entry Collider"));
+		EntryCollider = CreateDefaultSubobject<UBoxComponent>(TEXT("Entry Collider"));
+		EntryCollider->SetCollisionProfileName("Trigger");
+		EntryCollider->AttachTo(Root);
+		EntryCollider->SetBoxExtent(FVector(200.f, 750.f, 500.f));
+		
+		// TileSpawner
+		TileSpawner = CreateDefaultSubobject<UTileSpawner>(TEXT("Tile Spawner"));
+
+		// // On Component begin Overlap
+		// EntryCollider->OnComponentBeginOverlap.AddDynamic(this, &ATrackTile::OnOverlapBegin);
 	///----------------------------------------------------------------------------------------------------------------------------
 	
 
@@ -86,3 +96,11 @@ void ATrackTile::Tick(float DeltaTime)
 
 }
 
+
+// void ATrackTile::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+// {
+// 	if((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr))
+// 	{
+// 		Destroy();
+// 	}
+// }

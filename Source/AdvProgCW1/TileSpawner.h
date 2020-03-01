@@ -26,6 +26,9 @@ public:
 	// Exposed Variable Actor (choose the Actor that will be spawned)
 	UPROPERTY(EditAnywhere) 
 	TSubclassOf<AActor> ActorToSpawn;
+	
+	UPROPERTY(EditAnywhere) 
+	UObject* TileClass = Cast<UObject>(StaticLoadObject(UObject::StaticClass(), NULL, TEXT("/Script/AdvProgCW1.TrackTile")));
 
 	// Choose both Trigger Volumes
 	UPROPERTY(EditAnywhere) 

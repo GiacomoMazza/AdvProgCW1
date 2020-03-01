@@ -6,7 +6,9 @@
 #include "Components/BoxComponent.h" 	
 #include "Components/SpotLightComponent.h"
 #include "Components/PointLightComponent.h"
+#include "Engine/TriggerVolume.h"
 #include "GameFramework/Actor.h"
+#include "TileSpawner.h"
 #include "TrackTile.generated.h"
 
 UCLASS()
@@ -35,8 +37,12 @@ public:
 	UPointLightComponent* TunnelPointLight;
 
 	// Box Collider
-	// UPROPERTY(EditAnywhere)
-	// UBoxComponent* EntryCollider;
+	UPROPERTY(EditAnywhere)
+	class UBoxComponent* EntryCollider;
+
+	// Tile Spawner
+	UPROPERTY(EditAnywhere)
+	class UTileSpawner* TileSpawner;
 
 ///----------------------------------------------------------------------------------------------------------------------------
 	
@@ -50,4 +56,5 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 };
