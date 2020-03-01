@@ -36,9 +36,9 @@ public:
 	UPROPERTY(EditAnywhere)
 	UPointLightComponent* TunnelPointLight;
 
-	// Box Collider
-	UPROPERTY(EditAnywhere)
-	class UBoxComponent* EntryCollider;
+	// // Box Collider
+	// UPROPERTY(EditAnywhere)
+	// class UBoxComponent* EntryCollider;
 
 	// Tile Spawner
 	UPROPERTY(EditAnywhere)

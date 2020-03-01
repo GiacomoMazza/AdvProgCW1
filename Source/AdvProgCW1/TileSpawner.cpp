@@ -23,7 +23,7 @@ void UTileSpawner::BeginPlay()
 ///-JT- 
 ///----------------------------------------------------------------------------------------------------------------------------
 	// Just for Testing 
-	SpawnObject();
+	// SpawnObject();
 ///----------------------------------------------------------------------------------------------------------------------------
 
 }
@@ -33,6 +33,12 @@ void UTileSpawner::BeginPlay()
 void UTileSpawner::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+
+	if (Player == nullptr)
+	{
+		Player = GetWorld()->GetFirstPlayerController()->GetPawn();
+	}
 
 
 ///-JT- 
@@ -47,7 +53,7 @@ void UTileSpawner::TickComponent(float DeltaTime, ELevelTick TickType, FActorCom
 	// Destroy Tile when Player leaves the Exit Trigger Volume ----------------------------------------------------------------> TODO <-----
 	if (ExitTrigger && ExitTrigger->IsOverlappingActor(Player) && NextTileSpawned) 
 	{
-		// Destroy Tile
+		// TODO 
 	}
 ///----------------------------------------------------------------------------------------------------------------------------
 
