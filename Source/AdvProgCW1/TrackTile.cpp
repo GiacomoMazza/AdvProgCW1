@@ -66,7 +66,9 @@ ATrackTile::ATrackTile()
 		
 
 		// Create Colliders (Entry + Exit)
-		// EntryCollider = CreateDefaultSubobject<UBoxComponent>(TEXT("Entry Collider"));
+		EntryCollider = CreateDefaultSubobject<UBoxComponent>(TEXT("Entry Collider"));
+		EntryCollider->AttachTo(Root);
+		EntryCollider->SetBoxExtent(FVector(200.f, 750.f, 500.f));
 	///----------------------------------------------------------------------------------------------------------------------------
 	
 

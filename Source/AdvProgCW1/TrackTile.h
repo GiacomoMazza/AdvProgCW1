@@ -35,8 +35,8 @@ public:
 	UPointLightComponent* TunnelPointLight;
 
 	// Box Collider
-	// UPROPERTY(EditAnywhere)
-	// UBoxComponent* EntryCollider;
+	UPROPERTY(EditAnywhere)
+	UBoxComponent* EntryCollider;
 
 ///----------------------------------------------------------------------------------------------------------------------------
 	
