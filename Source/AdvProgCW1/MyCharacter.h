@@ -18,9 +18,12 @@ public:
 	// Sets default values for this character's properties
 	AMyCharacter();
 
+	//Modified by Giacomo Mazza (added bool)
+	bool bl_IsGameOver = false;
+
 	//speed which the character moves at
 	UPROPERTY(VisibleAnywhere, Category = "Player")
-	float runSpeed = 5;
+	float runSpeed = 60;
 
 	//stopping the user move in the same direction again
 	UPROPERTY(VisibleAnywhere, Category = "Player")
@@ -57,4 +60,7 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	//Modified by Giacomo Mazza (Added function).
+	void AddScore(float fl_ScoreAdded);
+	//Modified by Giacomo Mazza.
 };

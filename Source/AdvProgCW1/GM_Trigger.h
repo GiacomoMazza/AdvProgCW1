@@ -15,6 +15,12 @@ public:
 	// Sets default values for this actor's properties
 	AGM_Trigger();
 
+	//UFUNCTION()
+	//	void OnOverlapBegin2(class AActor* OverlappedActor, class AActor* OtherActor);
+
+	//UFUNCTION()
+	//	void OnOverlapEnd2(class AActor* OverlappedActor, class AActor* OtherActor);
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -24,5 +30,3 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 };
-
-//Made by Giacomo Mazza.

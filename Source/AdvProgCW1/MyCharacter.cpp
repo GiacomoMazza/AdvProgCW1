@@ -43,9 +43,18 @@ void AMyCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	
-	score += (points * DeltaTime);
-	AddMovementInput(GetActorForwardVector(), runSpeed*DeltaTime);
+	//Modified by Giacomo Mazza (if statement).
+	//if (!bl_IsGameOver)
+	//{
+		score += (points * DeltaTime);
+		AddMovementInput(GetActorForwardVector(), runSpeed*DeltaTime);
+	//}
 	
+}
+
+//Modified by Giacomo Mazza (Added function).
+void AMyCharacter::AddScore(float fl_ScoreAdded) {
+	score += fl_ScoreAdded;
 }
 
 void AMyCharacter::MoveRight(float Value)
@@ -53,18 +62,19 @@ void AMyCharacter::MoveRight(float Value)
 	//makes sure the player cannot move passed the further most points
 	if (prevVal != Value)
 	{
+		//Modified by Giacomo Mazza (if statement && (!bl_IsGameOver)).
 		if ((Controller) && (Value != 0.0))
 		{
-			//schanges preval based on where they are
+			//changes preval based on where they are
 			//so if you're in the centre (0) you move left or right
 			//or if you are either left or right you move back to the centre
 			if (prevVal == 0)
 			{
-				prevVal = Value;
+				prevVal = Value + 10;
 			}
 			else
 			{
-				prevVal += Value;
+				prevVal += Value + 10;
 			}
 
 			//the distance you move right or left

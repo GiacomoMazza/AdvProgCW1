@@ -2,8 +2,9 @@
 
 #include "DrawDebugHelpers.h"
 #include "GM_TriggerBox.h"
+#include "MyCharacter.h"
 
-//Constructor
+///This is the class that belongs to the pick-up scores.
 AGM_TriggerBox::AGM_TriggerBox()
 {
 	 OnActorBeginOverlap.AddDynamic(this, &AGM_TriggerBox::OnOverlapBegin);
@@ -14,21 +15,36 @@ AGM_TriggerBox::AGM_TriggerBox()
 void AGM_TriggerBox::BeginPlay() 
 {
 	Super::BeginPlay();
+
+	//This works only in the editor, which is fine, but consider adding a mesh before distributing it.
 	DrawDebugBox(GetWorld(), GetActorLocation(), GetComponentsBoundingBox().GetExtent(), FColor::Green, true, -1, 0, 5);
 }
 
-//When overlapping, do something
-void AGM_TriggerBox::OnOverlapBegin(class AActor* OverlappedActor, class AActor* OtherActor) {
-	if (OtherActor && (OtherActor != this)) {
+//When overlapping, destroy the score actor, make an instance of the class and add to the score.
+void AGM_TriggerBox::OnOverlapBegin(class AActor* OverlappedActor, class AActor* OtherActor) 
+{
+	if (OtherActor && (OtherActor != this)) 
+	{
 		UE_LOG(LogTemp, Warning, TEXT("Overlapped Actor (Begin) = %s"), *OverlappedActor->GetName());
+
+		//This tag should be player
+		//if (OverlappedActor->ActorHasTag("ScoreBlock")) 
+		//{
+		AMyCharacter MyClass;
+		MyClass.AddScore(50.0);
+		//OverlappedActor->Destroy();
+		//}
 	}
 }
 
 //When overlapping is over, do something
-void AGM_TriggerBox::OnOverlapEnd(class AActor* OverlappedActor, class AActor* OtherActor) {
-	if (OtherActor && (OtherActor != this)) {
+void AGM_TriggerBox::OnOverlapEnd(class AActor* OverlappedActor, class AActor* OtherActor) 
+{
+	if (OtherActor && (OtherActor != this)) 
+	{
 		UE_LOG(LogTemp, Warning, TEXT("Overlapped Actor (End) = %s"), *OtherActor->GetName());
-		OtherActor->Destroy();
+
+		
 	}
 }
 
