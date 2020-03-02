@@ -67,16 +67,17 @@ ATrackTile::ATrackTile()
 		
 
 		// // Create Colliders (Entry + Exit)
-		// EntryCollider = CreateDefaultSubobject<UBoxComponent>(TEXT("Entry Collider"));
-		// EntryCollider->SetCollisionProfileName("Trigger");
-		// EntryCollider->AttachTo(Root);
-		// EntryCollider->SetBoxExtent(FVector(200.f, 750.f, 500.f));
+		EntryCollider = CreateDefaultSubobject<UBoxComponent>(TEXT("Entry Collider"));
+		EntryCollider->SetCollisionProfileName("Trigger");
+		EntryCollider->AttachTo(Root);
+		EntryCollider->SetBoxExtent(FVector(200.f, 750.f, 500.f));
+		EntryCollider->SetRelativeLocation(FVector(5000, 0.0f, 0.0f));
 		
 		// TileSpawner
 		TileSpawner = CreateDefaultSubobject<UTileSpawner>(TEXT("Tile Spawner"));
 
 		// // On Component begin Overlap
-		// EntryCollider->OnComponentBeginOverlap.AddDynamic(this, &ATrackTile::OnOverlapBegin);
+		EntryCollider->OnComponentBeginOverlap.AddDynamic(this, &ATrackTile::OnOverlapBegin);
 	///----------------------------------------------------------------------------------------------------------------------------
 	
 
@@ -97,10 +98,11 @@ void ATrackTile::Tick(float DeltaTime)
 }
 
 
-// void ATrackTile::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
-// {
-// 	if((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr))
-// 	{
-// 		Destroy();
-// 	}
-// }
+void ATrackTile::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	if((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr))
+	{
+		UE_LOG(LogTemp, Error, TEXT("Tile Removed"));
+		Destroy();
+	}
+}

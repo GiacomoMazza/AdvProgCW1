@@ -37,8 +37,8 @@ public:
 	UPointLightComponent* TunnelPointLight;
 
 	// // Box Collider
-	// UPROPERTY(EditAnywhere)
-	// class UBoxComponent* EntryCollider;
+	UPROPERTY(EditAnywhere)
+	class UBoxComponent* EntryCollider;
 
 	// Tile Spawner
 	UPROPERTY(EditAnywhere)
@@ -56,5 +56,7 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+	UFUNCTION()
+	void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult); 
+
 };

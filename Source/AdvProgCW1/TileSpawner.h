@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Components/BoxComponent.h" 
 #include "Engine/TriggerVolume.h"
 #include "GameFramework/Actor.h"
 #include "TileSpawner.generated.h"
@@ -23,6 +24,10 @@ public:
 
 	///-JT- 
 	///----------------------------------------------------------------------------------------------------------------------------
+	// Add Root (for Transform)
+	UPROPERTY()
+	USceneComponent* Root;
+	
 	// Exposed Variable Actor (choose the Actor that will be spawned)
 	UPROPERTY(EditAnywhere) 
 	TSubclassOf<AActor> ActorToSpawn;
@@ -43,6 +48,10 @@ public:
 	// Tile Length Parameter
 	UPROPERTY(EditAnywhere) 
 	float TileLength = 2500;
+
+	// // Box Collider
+	UPROPERTY(EditAnywhere)
+	class UBoxComponent* EntryCollider;
 	///----------------------------------------------------------------------------------------------------------------------------
 
 
