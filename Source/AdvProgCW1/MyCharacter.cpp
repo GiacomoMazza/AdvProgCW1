@@ -32,6 +32,15 @@ AMyCharacter::AMyCharacter()
 void AMyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
+	//Set the timer.
+	GetWorldTimerManager().SetTimer(MemberTimerHandle, this, &AMyCharacter::RepeatingFunction, 2.0f, true, 5.0f);
+}
+
+///Once time is over, stop movement.
+void AMyCharacter::RepeatingFunction()
+{
+	bl_IsGameOver = true;
 }
 
 // Called every frame

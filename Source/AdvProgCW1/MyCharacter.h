@@ -63,4 +63,13 @@ public:
 	//Modified by Giacomo Mazza.
 	void AddScore(float fl_ScoreAdded);
 	//Modified by Giacomo Mazza.
+
+	//A function called by the time handler.
+	void RepeatingFunction();
+
+	UPROPERTY(EditAnywhere)
+	float fl_GameDuration = 60.f;
+
+	//The time handler.
+	FTimerHandle MemberTimerHandle;
 };
