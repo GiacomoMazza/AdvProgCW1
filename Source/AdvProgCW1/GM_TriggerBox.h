@@ -38,15 +38,19 @@ public:
 	/*UPROPERTY()
 		class AMyCharacter* MyClass;*/
 
+	//Number of times the trigger has been hit
 	UPROPERTY(VisibleAnywhere)
 		int in_Packages = 0;
 
+	//The new location the trigger will be spawned at
 	UPROPERTY(EditAnywhere, Category = Location)
 		FVector NewLocation;
 
+	//The new rotation the trigger will be spawned at (implemented if endless runner has curves)
 	UPROPERTY(EditAnywhere, Category = Location)
 		FQuat NewRotation;
 
+	//The distance the trigger is instantiated forward starting from the player's location
 	UPROPERTY(EditAnywhere, Category = Location)
 		float fl_Distance = 300.0;
 };

@@ -37,7 +37,7 @@ void AMyCharacter::BeginPlay()
 	GetWorldTimerManager().SetTimer(MemberTimerHandle, this, &AMyCharacter::RepeatingFunction, 2.0f, true, fl_GameDuration);
 }
 
-///Once time is over, stop movement.
+//Once time is over, stop movement.
 void AMyCharacter::RepeatingFunction()
 {
 	bl_IsGameOver = true;
@@ -48,7 +48,7 @@ void AMyCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	//Modified by Giacomo Mazza (if statement).
+	//Modified by Giacomo Mazza (if statement): Stop movign forward if game is over.
 	if (!bl_IsGameOver)
 	{
 		score += (points * DeltaTime);
@@ -56,17 +56,17 @@ void AMyCharacter::Tick(float DeltaTime)
 	}
 }
 
-//Modified by Giacomo Mazza (Added function).
-void AMyCharacter::AddScore(float fl_ScoreAdded) {
-	score += fl_ScoreAdded;
-}
+//Modified by Giacomo Mazza (Added function) - Not working (nullptr).
+//void AMyCharacter::AddScore(float fl_ScoreAdded) {
+	//score += fl_ScoreAdded;
+//}
 
 void AMyCharacter::MoveRight(float Value)
 {
 	//makes sure the player cannot move passed the further most points
 	if (prevVal != Value)
 	{
-		//Modified by Giacomo Mazza (if statement).
+		//Modified by Giacomo Mazza (if statement): stop moving left/right is game is over.
 		if ((Controller) && (Value != 0.0) && (!bl_IsGameOver))
 		{
 			//changes preval based on where they are

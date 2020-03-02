@@ -18,7 +18,7 @@ public:
 	// Sets default values for this character's properties
 	AMyCharacter();
 
-	//Modified by Giacomo Mazza (added bool)
+	//Modified by Giacomo Mazza (added bool) - Dictates if the game is over or not by stopping player movement
 	bool bl_IsGameOver = false;
 
 	//speed which the character moves at
@@ -60,16 +60,16 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	//Modified by Giacomo Mazza.
-	void AddScore(float fl_ScoreAdded);
-	//Modified by Giacomo Mazza.
+	//Modified by Giacomo Mazza. - Not working (nullptr)
+	//void AddScore(float fl_ScoreAdded);
 
-	//A function called by the time handler.
+	//Modified by Giacomo Mazza. A function called by the time handler.
 	void RepeatingFunction();
 
+	//Modified by Giacomo Mazza. The game's duration before it is over. Used only for the prototype.
 	UPROPERTY(EditAnywhere)
 	float fl_GameDuration = 60.f;
 
-	//The time handler.
+	//Modified by Giacomo Mazza. The time handler.
 	FTimerHandle MemberTimerHandle;
 };

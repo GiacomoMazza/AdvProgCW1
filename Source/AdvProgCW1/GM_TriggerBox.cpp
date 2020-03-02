@@ -27,6 +27,7 @@ void AGM_TriggerBox::OnOverlapBegin(class AActor* OverlappedActor, class AActor*
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Overlapped Actor (Begin) = %s"), *OverlappedActor->GetName());
 
+		///Previous methods - Not working
 		//if (OverlappedActor->ActorHasTag("ScoreBlock")) 
 		//{
 		//AMyCharacter MyClass;
@@ -38,13 +39,13 @@ void AGM_TriggerBox::OnOverlapBegin(class AActor* OverlappedActor, class AActor*
 		}*/
 		//}
 
-		//Increment number of packages collected
+		//Increment number of packages collected (times trigger has been hit)
 		in_Packages++;
 
 		//Compute new position
 		NewRotation = this->GetActorQuat();
 
-		//Compute new rotation with offset
+		//Compute new rotation with offset - Change offset to positive or negative
 		if (bl_PosOffset)
 		{
 			NewLocation = this->GetActorLocation() + FVector(fl_Distance, fl_Offset, 0);
