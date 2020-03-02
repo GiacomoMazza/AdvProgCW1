@@ -30,9 +30,13 @@ void AGM_TriggerBox::OnOverlapBegin(class AActor* OverlappedActor, class AActor*
 		//This tag should be player
 		//if (OverlappedActor->ActorHasTag("ScoreBlock")) 
 		//{
-		AMyCharacter MyClass;
-		MyClass.AddScore(50.0);
-		//OverlappedActor->Destroy();
+		//AMyCharacter MyClass;
+		//MyClass->AddScore(50.0);
+		if (MyClass != nullptr)
+		{
+			MyClass->score += 50;
+			OverlappedActor->Destroy();
+		}
 		//}
 	}
 }
@@ -42,9 +46,7 @@ void AGM_TriggerBox::OnOverlapEnd(class AActor* OverlappedActor, class AActor* O
 {
 	if (OtherActor && (OtherActor != this)) 
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Overlapped Actor (End) = %s"), *OtherActor->GetName());
-
-		
+		UE_LOG(LogTemp, Warning, TEXT("Overlapped Actor (End) = %s"), *OtherActor->GetName());		
 	}
 }
 

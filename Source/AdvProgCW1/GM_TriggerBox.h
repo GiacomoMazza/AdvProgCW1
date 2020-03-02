@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Engine/TriggerBox.h"
 #include "GM_TriggerBox.h"
+#include "MyCharacter.h"
 #include "GM_TriggerBox.generated.h"
 
 /**
@@ -26,6 +27,9 @@ public:
 
 	UFUNCTION()
 		void OnOverlapEnd(class AActor* OverlappedActor, class AActor* OtherActor);
+
+	UPROPERTY()
+		AMyCharacter* MyClass;
 };
 
 //Made by Giacomo Mazza.

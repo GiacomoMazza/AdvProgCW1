@@ -11,9 +11,7 @@
 // Sets default values
 AMyCharacter::AMyCharacter()
 {
-	
-
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	//sets up the spring arm component which is kind of like a boon for the camera to be attached to the player
@@ -28,28 +26,25 @@ AMyCharacter::AMyCharacter()
 	//set up the player mesh
 	meshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PlayerMesh"));
 	meshComp->SetupAttachment(RootComponent);
-
 }
 
 // Called when the game starts or when spawned
 void AMyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called every frame
 void AMyCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	
+
 	//Modified by Giacomo Mazza (if statement).
-	//if (!bl_IsGameOver)
-	//{
+	if (!bl_IsGameOver)
+	{
 		score += (points * DeltaTime);
 		AddMovementInput(GetActorForwardVector(), runSpeed*DeltaTime);
-	//}
-	
+	}
 }
 
 //Modified by Giacomo Mazza (Added function).
@@ -63,7 +58,7 @@ void AMyCharacter::MoveRight(float Value)
 	if (prevVal != Value)
 	{
 		//Modified by Giacomo Mazza (if statement && (!bl_IsGameOver)).
-		if ((Controller) && (Value != 0.0))
+		if ((Controller) && (Value != 0.0) && (!bl_IsGameOver))
 		{
 			//changes preval based on where they are
 			//so if you're in the centre (0) you move left or right
@@ -90,8 +85,7 @@ void AMyCharacter::MoveRight(float Value)
 			//FVector Direction = FRotationMatrix(Controller->GetControlRotation()).GetScaledAxis(EAxis::Y);
 			//AddMovementInput(Direction, Value);
 		}
-	}
-	
+	}	
 }
 
 // Called to bind functionality to input

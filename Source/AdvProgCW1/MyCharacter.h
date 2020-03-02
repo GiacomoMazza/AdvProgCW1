@@ -27,7 +27,7 @@ public:
 
 	//stopping the user move in the same direction again
 	UPROPERTY(VisibleAnywhere, Category = "Player")
-		float prevVal = 0;
+	float prevVal = 0;
 	
 	//score
 	UPROPERTY(VisibleAnywhere, Category = "Player")
@@ -60,7 +60,7 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	//Modified by Giacomo Mazza (Added function).
+	//Modified by Giacomo Mazza.
 	void AddScore(float fl_ScoreAdded);
 	//Modified by Giacomo Mazza.
 };
