@@ -8,13 +8,6 @@
 // Sets default values for this component's properties
 UTileSpawner::UTileSpawner()
 {	
-
-///-JT- 
-///----------------------------------------------------------------------------------------------------------------------------
-///----------------------------------------------------------------------------------------------------------------------------
-
-
-
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
@@ -26,14 +19,6 @@ UTileSpawner::UTileSpawner()
 void UTileSpawner::BeginPlay()
 {
 	Super::BeginPlay(); 
-
-
-///-JT- 
-///----------------------------------------------------------------------------------------------------------------------------
-	// Just for Testing 
-	SpawnObject();
-///----------------------------------------------------------------------------------------------------------------------------
-
 }
 
 
@@ -41,30 +26,6 @@ void UTileSpawner::BeginPlay()
 void UTileSpawner::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-
-	if (Player == nullptr)
-	{
-		Player = GetWorld()->GetFirstPlayerController()->GetPawn();
-	}
-
-
-///-JT- 
-///----------------------------------------------------------------------------------------------------------------------------
-	// Spawn next Tile when Player Enters the Entry Trigger Volume
-	if (EntryTrigger && EntryTrigger->IsOverlappingActor(Player) && !NextTileSpawned)
-	{
-		SpawnObject();
-		NextTileSpawned = true;
-	}
-
-	// Destroy Tile when Player leaves the Exit Trigger Volume ----------------------------------------------------------------> TODO <-----
-	if (ExitTrigger && ExitTrigger->IsOverlappingActor(Player) && NextTileSpawned) 
-	{
-		// TODO 
-	}
-///----------------------------------------------------------------------------------------------------------------------------
-
 }
 
 
@@ -86,6 +47,6 @@ void UTileSpawner::SpawnObject()
 
 
 	// DEBUG LOG (Optional)
-	UE_LOG(LogTemp, Warning, TEXT("New Tile Spawned at: %s"), *SpawnPosition.ToString());
+	UE_LOG(LogTemp, Warning, TEXT("TILE SPAWNED AT: %s"), *SpawnPosition.ToString());
 }
 ///----------------------------------------------------------------------------------------------------------------------------

@@ -29,14 +29,10 @@ public:
 	UPROPERTY()
 	USceneComponent* Root;
 
-	// Exposed Variable Actor (choose the Actor that will be spawned)
-	UPROPERTY(EditAnywhere) 
-	TSubclassOf<AActor> TileToSpawn;
-
-	UPROPERTY(EditAnywhere) 
-	UObject* TileClass = Cast<UObject>(StaticLoadObject(UObject::StaticClass(), NULL, TEXT("/Script/AdvProgCW1.TrackTile")));
-
-
+	// Add StaticMesh Component
+	UPROPERTY(EditAnywhere)
+	UTileSpawner* TileSpawnerComponent;
+	
 	// Add StaticMesh Component
 	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* Mesh;
@@ -76,10 +72,5 @@ public:
 
 	UFUNCTION()
 	void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult); 
-
-	UFUNCTION()
-	void SpawnObject();
-
-
 
 };

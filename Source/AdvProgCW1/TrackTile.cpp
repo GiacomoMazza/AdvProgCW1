@@ -21,6 +21,9 @@ ATrackTile::ATrackTile()
 		// Transform
 		RootComponent = Root;
 
+		// Tile Spawner Component
+		TileSpawnerComponent = CreateDefaultSubobject<UTileSpawner>(TEXT("TileSpawner"));
+
 		// Static Mesh Creation + Attach to Root
 		Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("TrackTile_SM"));
 		Mesh->AttachTo(Root);
@@ -28,8 +31,8 @@ ATrackTile::ATrackTile()
 		// TunnelLights
 		TunnelLight = CreateDefaultSubobject<USpotLightComponent>(TEXT("SpotLight_L"));
 		TunnelLight->SetIntensity(1000000.f); 
-		TunnelLight->SetOuterConeAngle(65.f);
-		TunnelLight->SetAttenuationRadius(3000.f);
+		TunnelLight->SetOuterConeAngle(70.f);
+		TunnelLight->SetAttenuationRadius(2500.f);
 		TunnelLight->SetRelativeRotation(FRotator(-90.f, 0.f, 0.f));
 		TunnelLight->SetRelativeLocation(FVector(2000.f, 0.f, 800.f));
 		TunnelLight->AttachTo(Root);
@@ -92,6 +95,7 @@ ATrackTile::ATrackTile()
 void ATrackTile::BeginPlay()
 {
 	Super::BeginPlay();
+	TileSpawnerComponent->SpawnObject();
 }
 
 // Called every frame
@@ -105,7 +109,7 @@ void ATrackTile::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* Oth
 {
 	if((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr))
 	{
-		UE_LOG(LogTemp, Error, TEXT("OVERLAP BEGIN"));
+		TileSpawnerComponent->SpawnObject();
 	}
 }
 
@@ -113,29 +117,7 @@ void ATrackTile::OnOverlapBeginExit(UPrimitiveComponent* OverlappedComp, AActor*
 {
 	if((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr))
 	{
-		UE_LOG(LogTemp, Error, TEXT("TILE DESTROYED"));
+		UE_LOG(LogTemp, Warning, TEXT("TILE DESTROYED"));
 		Destroy();
 	}
 }
-
-///-JT- 
-/// Spawner Function 
-///----------------------------------------------------------------------------------------------------------------------------
-void ATrackTile::SpawnObject()
-{	
-	// Get CurrentTile Position
-	FVector CurrentTilePositionA = GetOwner()->GetActorLocation();
-	// Calculate position of spawned Tile (currentTile X + TileLength)
-	FVector SpawnPositionA = FVector(CurrentTilePositionA.X + TileLength, CurrentTilePositionA.Y, CurrentTilePositionA.Z);
-	// FRotator SpawnRotationA = GetOwner()->GetActorRotation();
-
-	// Spawn Parameters
-	FActorSpawnParameters SpawnParametersA;
-	// Spawn Actor at specified Position
-	// AActor* SpawnedActorRef = GetWorld()->SpawnActor<AActor>(TileToSpawn, SpawnPositionA, SpawnRotationA);
-
-
-	// DEBUG LOG (Optional)
-	UE_LOG(LogTemp, Warning, TEXT("New Tile Spawned at: %s"), *SpawnPositionA.ToString());
-}
-///----------------------------------------------------------------------------------------------------------------------------
