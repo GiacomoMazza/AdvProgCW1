@@ -28,8 +28,20 @@ public:
 	UFUNCTION()
 		void OnOverlapEnd(class AActor* OverlappedActor, class AActor* OtherActor);
 
-	UPROPERTY()
-		AMyCharacter* MyClass;
+	/*UPROPERTY()
+		AMyCharacter* MyClass;*/
+
+	UPROPERTY(VisibleAnywhere)
+		int in_Packages = 0;
+
+	UPROPERTY(EditAnywhere, Category = Location)
+		FVector NewLocation;
+
+	UPROPERTY(EditAnywhere, Category = Location)
+		FQuat NewRotation;
+
+	UPROPERTY(EditAnywhere, Category = Location)
+		float fl_Distance = 300.0;
 };
 
 //Made by Giacomo Mazza.

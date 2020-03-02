@@ -21,6 +21,9 @@ ATrackTile::ATrackTile()
 		// Transform
 		RootComponent = Root;
 
+		// Tile Spawner Component
+		TileSpawnerComponent = CreateDefaultSubobject<UTileSpawner>(TEXT("TileSpawner"));
+
 		// Static Mesh Creation + Attach to Root
 		Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("TrackTile_SM"));
 		Mesh->AttachTo(Root);
@@ -28,8 +31,8 @@ ATrackTile::ATrackTile()
 		// TunnelLights
 		TunnelLight = CreateDefaultSubobject<USpotLightComponent>(TEXT("SpotLight_L"));
 		TunnelLight->SetIntensity(1000000.f); 
-		TunnelLight->SetOuterConeAngle(65.f);
-		TunnelLight->SetAttenuationRadius(3000.f);
+		TunnelLight->SetOuterConeAngle(70.f);
+		TunnelLight->SetAttenuationRadius(2500.f);
 		TunnelLight->SetRelativeRotation(FRotator(-90.f, 0.f, 0.f));
 		TunnelLight->SetRelativeLocation(FVector(2000.f, 0.f, 800.f));
 		TunnelLight->AttachTo(Root);
@@ -71,12 +74,18 @@ ATrackTile::ATrackTile()
 		EntryCollider->SetCollisionProfileName("Trigger");
 		EntryCollider->AttachTo(Root);
 		EntryCollider->SetBoxExtent(FVector(200.f, 750.f, 500.f));
-		
-		// TileSpawner
-		TileSpawner = CreateDefaultSubobject<UTileSpawner>(TEXT("Tile Spawner"));
+		EntryCollider->SetRelativeLocation(FVector(-TileLength, 0.0f, 0.0f));
 
-		// // On Component begin Overlap
-		// EntryCollider->OnComponentBeginOverlap.AddDynamic(this, &ATrackTile::OnOverlapBegin);
+		ExitCollider = CreateDefaultSubobject<UBoxComponent>(TEXT("Exit Collider"));
+		ExitCollider->SetCollisionProfileName("Trigger");
+		ExitCollider->AttachTo(Root);
+		ExitCollider->SetBoxExtent(FVector(200.f, 750.f, 500.f));
+		ExitCollider->SetRelativeLocation(FVector(TileLength * 2, 0.0f, 0.0f));
+
+		// On Component begin Overlap
+		EntryCollider->OnComponentBeginOverlap.AddDynamic(this, &ATrackTile::OnOverlapBegin);
+		ExitCollider->OnComponentBeginOverlap.AddDynamic(this, &ATrackTile::OnOverlapBeginExit);
+		
 	///----------------------------------------------------------------------------------------------------------------------------
 	
 
@@ -86,21 +95,29 @@ ATrackTile::ATrackTile()
 void ATrackTile::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	TileSpawnerComponent->SpawnObject();
 }
 
 // Called every frame
 void ATrackTile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 
-// void ATrackTile::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
-// {
-// 	if((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr))
-// 	{
-// 		Destroy();
-// 	}
-// }
+void ATrackTile::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	if((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr))
+	{
+		TileSpawnerComponent->SpawnObject();
+	}
+}
+
+void ATrackTile::OnOverlapBeginExit(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	if((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("TILE DESTROYED"));
+		Destroy();
+	}
+}

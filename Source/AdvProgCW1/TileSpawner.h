@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Components/BoxComponent.h" 
 #include "Engine/TriggerVolume.h"
 #include "GameFramework/Actor.h"
 #include "TileSpawner.generated.h"
@@ -23,6 +24,8 @@ public:
 
 	///-JT- 
 	///----------------------------------------------------------------------------------------------------------------------------
+	// Add Root (for Transform)
+	
 	// Exposed Variable Actor (choose the Actor that will be spawned)
 	UPROPERTY(EditAnywhere) 
 	TSubclassOf<AActor> ActorToSpawn;
@@ -30,19 +33,10 @@ public:
 	UPROPERTY(EditAnywhere) 
 	UObject* TileClass = Cast<UObject>(StaticLoadObject(UObject::StaticClass(), NULL, TEXT("/Script/AdvProgCW1.TrackTile")));
 
-	// Choose both Trigger Volumes
-	UPROPERTY(EditAnywhere) 
-	ATriggerVolume* EntryTrigger;
-	UPROPERTY(EditAnywhere) 
-	ATriggerVolume* ExitTrigger;
-
-	// Select Player
-	UPROPERTY(EditAnywhere) 
-	AActor* Player;
-
 	// Tile Length Parameter
 	UPROPERTY(EditAnywhere) 
 	float TileLength = 2500;
+
 	///----------------------------------------------------------------------------------------------------------------------------
 
 
@@ -51,7 +45,7 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
-private:
+public:
 
 	///-JT- 
 	///----------------------------------------------------------------------------------------------------------------------------
@@ -59,6 +53,7 @@ private:
 	UFUNCTION()
 	void SpawnObject();
 	bool NextTileSpawned = false;
+
 	///----------------------------------------------------------------------------------------------------------------------------
 		
 };

@@ -20,24 +20,27 @@ void AGM_TriggerBox::BeginPlay()
 	DrawDebugBox(GetWorld(), GetActorLocation(), GetComponentsBoundingBox().GetExtent(), FColor::Green, true, -1, 0, 5);
 }
 
-//When overlapping, destroy the score actor, make an instance of the class and add to the score.
+//When overlapping, add packages and set its new location and rotation.
 void AGM_TriggerBox::OnOverlapBegin(class AActor* OverlappedActor, class AActor* OtherActor) 
 {
 	if (OtherActor && (OtherActor != this)) 
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Overlapped Actor (Begin) = %s"), *OverlappedActor->GetName());
 
-		//This tag should be player
 		//if (OverlappedActor->ActorHasTag("ScoreBlock")) 
 		//{
 		//AMyCharacter MyClass;
 		//MyClass->AddScore(50.0);
-		if (MyClass != nullptr)
+		/*if (MyClass != nullptr)
 		{
 			MyClass->score += 50;
 			OverlappedActor->Destroy();
-		}
+		}*/
 		//}
+		in_Packages++;
+		NewRotation = this->GetActorQuat();
+		NewLocation = this->GetActorLocation() + FVector(fl_Distance, 0, 0);
+		SetActorLocationAndRotation(NewLocation, NewRotation, false, 0, ETeleportType::None);
 	}
 }
 
