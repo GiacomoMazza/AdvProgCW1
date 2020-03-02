@@ -29,7 +29,7 @@ public:
 		void OnOverlapEnd(class AActor* OverlappedActor, class AActor* OtherActor);
 
 	/*UPROPERTY()
-		AMyCharacter* MyClass;*/
+		class AMyCharacter* MyClass;*/
 
 	UPROPERTY(VisibleAnywhere)
 		int in_Packages = 0;

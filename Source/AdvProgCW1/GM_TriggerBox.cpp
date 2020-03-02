@@ -41,6 +41,7 @@ void AGM_TriggerBox::OnOverlapBegin(class AActor* OverlappedActor, class AActor*
 		NewRotation = this->GetActorQuat();
 		NewLocation = this->GetActorLocation() + FVector(fl_Distance, 0, 0);
 		SetActorLocationAndRotation(NewLocation, NewRotation, false, 0, ETeleportType::None);
+		DrawDebugBox(GetWorld(), GetActorLocation(), GetComponentsBoundingBox().GetExtent(), FColor::Green, true, -1, 0, 5);		
 	}
 }
 

@@ -34,7 +34,7 @@ void AMyCharacter::BeginPlay()
 	Super::BeginPlay();
 
 	//Set the timer.
-	GetWorldTimerManager().SetTimer(MemberTimerHandle, this, &AMyCharacter::RepeatingFunction, 2.0f, true, 5.0f);
+	GetWorldTimerManager().SetTimer(MemberTimerHandle, this, &AMyCharacter::RepeatingFunction, 2.0f, true, fl_GameDuration);
 }
 
 ///Once time is over, stop movement.
