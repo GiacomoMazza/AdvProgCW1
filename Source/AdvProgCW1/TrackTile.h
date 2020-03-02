@@ -20,11 +20,22 @@ public:
 	// Sets default values for this actor's properties
 	ATrackTile();
 
+	UFUNCTION()
+	void OnOverlapBeginExit(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult); 
+
 ///-JT- 
 ///----------------------------------------------------------------------------------------------------------------------------
 	// Add Root (for Transform)
 	UPROPERTY()
 	USceneComponent* Root;
+
+	// Exposed Variable Actor (choose the Actor that will be spawned)
+	UPROPERTY(EditAnywhere) 
+	TSubclassOf<AActor> TileToSpawn;
+
+	UPROPERTY(EditAnywhere) 
+	UObject* TileClass = Cast<UObject>(StaticLoadObject(UObject::StaticClass(), NULL, TEXT("/Script/AdvProgCW1.TrackTile")));
+
 
 	// Add StaticMesh Component
 	UPROPERTY(EditAnywhere)
@@ -39,10 +50,16 @@ public:
 	// // Box Collider
 	UPROPERTY(EditAnywhere)
 	class UBoxComponent* EntryCollider;
+	UPROPERTY(EditAnywhere)
+	class UBoxComponent* ExitCollider;
 
 	// Tile Spawner
 	UPROPERTY(EditAnywhere)
 	class UTileSpawner* TileSpawner;
+	
+	// Tile Length Parameter
+	UPROPERTY(EditAnywhere) 
+	float TileLength = 2500;
 
 ///----------------------------------------------------------------------------------------------------------------------------
 	
@@ -56,7 +73,13 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+
 	UFUNCTION()
 	void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult); 
+
+	UFUNCTION()
+	void SpawnObject();
+
+
 
 };

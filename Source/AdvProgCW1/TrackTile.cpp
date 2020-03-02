@@ -66,18 +66,23 @@ ATrackTile::ATrackTile()
 		///-------------------------------------------
 		
 
-		// // Create Colliders (Entry + Exit)
+		// Create Colliders (Entry + Exit)
 		EntryCollider = CreateDefaultSubobject<UBoxComponent>(TEXT("Entry Collider"));
 		EntryCollider->SetCollisionProfileName("Trigger");
 		EntryCollider->AttachTo(Root);
 		EntryCollider->SetBoxExtent(FVector(200.f, 750.f, 500.f));
-		EntryCollider->SetRelativeLocation(FVector(5000, 0.0f, 0.0f));
-		
-		// TileSpawner
-		TileSpawner = CreateDefaultSubobject<UTileSpawner>(TEXT("Tile Spawner"));
+		EntryCollider->SetRelativeLocation(FVector(-TileLength, 0.0f, 0.0f));
 
-		// // On Component begin Overlap
+		ExitCollider = CreateDefaultSubobject<UBoxComponent>(TEXT("Exit Collider"));
+		ExitCollider->SetCollisionProfileName("Trigger");
+		ExitCollider->AttachTo(Root);
+		ExitCollider->SetBoxExtent(FVector(200.f, 750.f, 500.f));
+		ExitCollider->SetRelativeLocation(FVector(TileLength * 2, 0.0f, 0.0f));
+
+		// On Component begin Overlap
 		EntryCollider->OnComponentBeginOverlap.AddDynamic(this, &ATrackTile::OnOverlapBegin);
+		ExitCollider->OnComponentBeginOverlap.AddDynamic(this, &ATrackTile::OnOverlapBeginExit);
+		
 	///----------------------------------------------------------------------------------------------------------------------------
 	
 
@@ -87,14 +92,12 @@ ATrackTile::ATrackTile()
 void ATrackTile::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called every frame
 void ATrackTile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 
@@ -102,7 +105,37 @@ void ATrackTile::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* Oth
 {
 	if((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr))
 	{
-		UE_LOG(LogTemp, Error, TEXT("Tile Removed"));
+		UE_LOG(LogTemp, Error, TEXT("OVERLAP BEGIN"));
+	}
+}
+
+void ATrackTile::OnOverlapBeginExit(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	if((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr))
+	{
+		UE_LOG(LogTemp, Error, TEXT("TILE DESTROYED"));
 		Destroy();
 	}
 }
+
+///-JT- 
+/// Spawner Function 
+///----------------------------------------------------------------------------------------------------------------------------
+void ATrackTile::SpawnObject()
+{	
+	// Get CurrentTile Position
+	FVector CurrentTilePositionA = GetOwner()->GetActorLocation();
+	// Calculate position of spawned Tile (currentTile X + TileLength)
+	FVector SpawnPositionA = FVector(CurrentTilePositionA.X + TileLength, CurrentTilePositionA.Y, CurrentTilePositionA.Z);
+	// FRotator SpawnRotationA = GetOwner()->GetActorRotation();
+
+	// Spawn Parameters
+	FActorSpawnParameters SpawnParametersA;
+	// Spawn Actor at specified Position
+	// AActor* SpawnedActorRef = GetWorld()->SpawnActor<AActor>(TileToSpawn, SpawnPositionA, SpawnRotationA);
+
+
+	// DEBUG LOG (Optional)
+	UE_LOG(LogTemp, Warning, TEXT("New Tile Spawned at: %s"), *SpawnPositionA.ToString());
+}
+///----------------------------------------------------------------------------------------------------------------------------
