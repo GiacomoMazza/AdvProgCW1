@@ -37,10 +37,30 @@ void AGM_TriggerBox::OnOverlapBegin(class AActor* OverlappedActor, class AActor*
 			OverlappedActor->Destroy();
 		}*/
 		//}
+
+		//Increment number of packages collected
 		in_Packages++;
+
+		//Compute new position
 		NewRotation = this->GetActorQuat();
-		NewLocation = this->GetActorLocation() + FVector(fl_Distance, 0, 0);
+
+		//Compute new rotation with offset
+		if (bl_PosOffset)
+		{
+			NewLocation = this->GetActorLocation() + FVector(fl_Distance, fl_Offset, 0);
+			bl_PosOffset = !bl_PosOffset;
+		}
+
+		else if (!bl_PosOffset)
+		{
+			NewLocation = this->GetActorLocation() + FVector(fl_Distance, -fl_Offset, 0);
+			bl_PosOffset = !bl_PosOffset;
+		}
+
+		//Set new location and new rotation
 		SetActorLocationAndRotation(NewLocation, NewRotation, false, 0, ETeleportType::None);
+
+		//Update draring of the edges
 		DrawDebugBox(GetWorld(), GetActorLocation(), GetComponentsBoundingBox().GetExtent(), FColor::Green, true, -1, 0, 5);		
 	}
 }

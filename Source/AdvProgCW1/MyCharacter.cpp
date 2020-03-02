@@ -66,7 +66,7 @@ void AMyCharacter::MoveRight(float Value)
 	//makes sure the player cannot move passed the further most points
 	if (prevVal != Value)
 	{
-		//Modified by Giacomo Mazza (if statement && (!bl_IsGameOver)).
+		//Modified by Giacomo Mazza (if statement).
 		if ((Controller) && (Value != 0.0) && (!bl_IsGameOver))
 		{
 			//changes preval based on where they are

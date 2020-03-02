@@ -22,6 +22,13 @@ protected:
 public:
 	AGM_TriggerBox();
 
+	//Offset of trigger's location
+	UPROPERTY(EditAnywhere)
+	float fl_Offset = 100.f;
+
+	//Is the offset negative or positive?
+	bool bl_PosOffset = true;
+
 	UFUNCTION()
 		void OnOverlapBegin(class AActor* OverlappedActor, class AActor* OtherActor);
 
