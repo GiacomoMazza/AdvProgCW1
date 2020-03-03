@@ -73,16 +73,16 @@ ATrackTile::ATrackTile()
 		EntryCollider = CreateDefaultSubobject<UBoxComponent>(TEXT("Entry Collider"));
 		EntryCollider->SetCollisionProfileName("Trigger");
 		EntryCollider->AttachTo(Root);
-		EntryCollider->SetBoxExtent(FVector(200.f, 750.f, 500.f));
-		EntryCollider->SetRelativeLocation(FVector(-TileLength, 0.0f, 0.0f));
+		EntryCollider->SetBoxExtent(FVector(50.f, 700.f, 225.f));
+		EntryCollider->SetRelativeLocation(FVector(-TileLength - 250, 0.0f, -50.0f));
 
 		ExitCollider = CreateDefaultSubobject<UBoxComponent>(TEXT("Exit Collider"));
 		ExitCollider->SetCollisionProfileName("Trigger");
 		ExitCollider->AttachTo(Root);
-		ExitCollider->SetBoxExtent(FVector(200.f, 750.f, 500.f));
-		ExitCollider->SetRelativeLocation(FVector(TileLength * 2, 0.0f, 0.0f));
+		ExitCollider->SetBoxExtent(FVector(50.f, 700.f, 225.f));
+		ExitCollider->SetRelativeLocation(FVector(TileLength * 2 - 500, 0.0f, -50.0f));
 
-		// On Component begin Overlap
+		// On Component begin Overlap (Dynamic Functions)
 		EntryCollider->OnComponentBeginOverlap.AddDynamic(this, &ATrackTile::OnOverlapBegin);
 		ExitCollider->OnComponentBeginOverlap.AddDynamic(this, &ATrackTile::OnOverlapBeginExit);
 		
@@ -95,7 +95,6 @@ ATrackTile::ATrackTile()
 void ATrackTile::BeginPlay()
 {
 	Super::BeginPlay();
-	TileSpawnerComponent->SpawnObject();
 }
 
 // Called every frame

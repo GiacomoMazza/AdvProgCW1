@@ -3,7 +3,9 @@
 
 #include "Engine/World.h"
 #include "Components/SceneComponent.h"
+#include "TrackTile.h"
 #include "TileSpawner.h"
+
 
 // Sets default values for this component's properties
 UTileSpawner::UTileSpawner()
@@ -34,6 +36,7 @@ void UTileSpawner::TickComponent(float DeltaTime, ELevelTick TickType, FActorCom
 ///----------------------------------------------------------------------------------------------------------------------------
 void UTileSpawner::SpawnObject()
 {	
+
 	// Get CurrentTile Position
 	FVector CurrentTilePosition = GetOwner()->GetActorLocation();
 	// Calculate position of spawned Tile (currentTile X + TileLength)

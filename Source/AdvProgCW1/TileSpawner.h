@@ -28,10 +28,12 @@ public:
 	
 	// Exposed Variable Actor (choose the Actor that will be spawned)
 	UPROPERTY(EditAnywhere) 
-	TSubclassOf<AActor> ActorToSpawn;
+	TSubclassOf<UObject> ActorToSpawn;
 	
 	UPROPERTY(EditAnywhere) 
 	UObject* TileClass = Cast<UObject>(StaticLoadObject(UObject::StaticClass(), NULL, TEXT("/Script/AdvProgCW1.TrackTile")));
+
+
 
 	// Tile Length Parameter
 	UPROPERTY(EditAnywhere) 
